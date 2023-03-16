@@ -54,6 +54,33 @@ x0_3d = np.random.uniform(low=-500, high=500, size=3)
 # Ejecutar el descenso por gradiente en 3D
 x_opt_3d, y_opt_3d, n_iter_3d = gradient_descent(schwefel, x0_3d)
 
+x = np.linspace(-500, 500, 100)
+y = np.linspace(-500, 500, 100)
+X, Y = np.meshgrid(x, y)
+Z = np.zeros_like(X)
+for i in range(len(x)):
+    for j in range(len(y)):
+        Z[i,j] = schwefel([X[i,j], Y[i,j]])
+
+# Crear la figura y el subplot 3D
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Graficar la superficie de la función
+ax.plot_surface(X, Y, Z, cmap='jet', alpha=0.5)
+
+# Graficar la trayectoria de optimización
+ax.plot([x_opt_3d[0]], [x_opt_3d[1]], [y_opt_3d], 'rx', markersize=10)
+
+# Configurar los ejes y el título
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+plt.title('Optimización de Schwefel en 3D')
+
+# Mostrar la figura
+plt.show()
+
 # Visualizar la función y la trayectoria de optimización en 3D
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
